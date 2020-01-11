@@ -1,3 +1,17 @@
-## 0.0.1
+## 0.0.2
+* Description added to `pubspec.yaml`.
+* Documentation API done.
+* Added licence.
+* `README.md` updated
 
-* Basic function done. On **iOS** works correctly. For **Android** it tries to request permission if possible and considers `PixelCopy` (_API >= 26_) that still not works; `getBitmap()` works, so this is used for now.
+### Android
+* Unified the code to condesate the plugin initialization and use for the v1 and v2 Flutter's plugin engine.
+* Now the screenshot is written to a folder with the application name on it, if fails then goes to external storage.
+* Tried `Canvas` and `PixelCopy` approaches, both throws a black image, still uses `getBitmap()` method.
+
+## 0.0.1
+### iOS
+* Basic functionionality done.
+
+### Android
+* Tries to request permission if possible and considers `PixelCopy` (_API >= 26_) that still not works; `getBitmap()` works, so this is used for now.
