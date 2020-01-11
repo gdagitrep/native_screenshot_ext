@@ -9,7 +9,7 @@ The main difference with another packages is that they shows a share dialog. Thi
 Add
 
 ```
-native_screenshot: ^0.0.1
+native_screenshot: ^0.0.3
 ```
 
 to your `pubspec.yaml` file.
@@ -23,6 +23,16 @@ You must add
 
 to your `AndroidManifest.xml` inside `android/src/main/` directory.
 
+### iOS
+If don't add
+
+```
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>Take pretty screenshots and save it to the PhotoLibrary.</string>
+```
+
+to your `info.plist` file inside `ios/Runner` directory, the application will crash.
+
 ## Use
 
 Import the library:
@@ -34,7 +44,7 @@ import 'package:native_screenshot/native_screenshot.dart';
 and take a screenshot:
 
 ```
-String path = NativeScreenshot.takeScreenshot()
+String path = await NativeScreenshot.takeScreenshot()
 ```
 
 In error case the function returns `null` and the screenshot path if success.

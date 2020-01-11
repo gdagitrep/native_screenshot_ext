@@ -1,3 +1,9 @@
+## 0.0.3
+* Homepage, Repository and Issuetracker added to `pubspec.yaml`.
+### iOS
+* Code improvement.
+* The function now takes the screenshot, save it to the application directory and then it adds to the PhotoLibrary. Now it needs `NSPhotoLibraryAddUsageDescription` key into `info.plist` file.
+
 ## 0.0.2
 * Description added to `pubspec.yaml`.
 * Documentation API done.

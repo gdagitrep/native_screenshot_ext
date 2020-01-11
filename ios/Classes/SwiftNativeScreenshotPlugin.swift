@@ -4,6 +4,8 @@ import UIKit
 public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
     var controller :FlutterViewController!
     var messenger :FlutterBinaryMessenger
+    var result :FlutterResult!
+    var screenshotPath :String!
     
     init(controller: FlutterViewController, messenger: FlutterBinaryMessenger) {
         self.controller = controller
@@ -32,41 +34,89 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         
             return
         } // if
-    
-        result( takeScreenshot(view: controller.view) )
+        
+        self.result = result
+        
+        // FIX: add posibility to choose if gallery or some path
+        takeScreenshot(view: controller.view)
     } // handle()
     
-    func takeScreenshot(view: UIView) -> String? {
-        let scale :CGFloat = UIScreen.main.scale
+    func getScreenshotName() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyymmddHHmmss"
         
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, scale)
+        let fname :String = "native_screenshot-\(format.string(from: Date())).png"
         
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-        
-        let image :UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        guard let imageData = image?.pngData() else {
-            return nil
-        } // guard
-        
+        return fname
+    } // getScreenshotName()
+    
+    func getScreenshotPath() -> URL? {
         let paths :[URL] = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         
         guard let dir = paths.first else {
             return nil
         } // guard
         
-        let format = DateFormatter()
-        format.dateFormat = "yyyymmddHHmmss"
-        
-        let fname :String = "native_screenshot-\(format.string(from: Date())).png"
-        let fpath = dir.appendingPathComponent(fname)
-        
-        guard let _ = try? imageData.write(to: fpath) else {
+        return dir.appendingPathComponent( getScreenshotName() )
+    } // getScreenshotPath()
+    
+    func writeImageToDefaultPath(image: UIImage) -> String? {
+        guard let imageData = image.pngData() else {
             return nil
         } // guard
         
-        return fpath.path
+        guard let path = getScreenshotPath() else {
+            return nil
+        } // guard
+        
+        guard let _ = try? imageData.write(to: path) else {
+            return nil
+        } // guard
+        
+        return path.path
+    } // writeImageToDefaultPath()
+    
+    @objc
+    func savedToGalleryDone(image: UIImage, error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
+        if error == nil && self.screenshotPath != nil && !self.screenshotPath.isEmpty {
+            result(self.screenshotPath)
+        } else {
+            result(nil)
+        }
+    } // savedToGalleryDone()
+    
+    func writeImageToGallery(image :UIImage) {
+        UIImageWriteToSavedPhotosAlbum(
+            image,
+            self,
+            #selector(savedToGalleryDone),
+            nil
+        ); // UIImageWriteToSavedPhotosAlbum()
+    } // writeImageToGallery()
+    
+    func takeScreenshot(view: UIView, toImageGallery :Bool = true) {
+        let scale :CGFloat = UIScreen.main.scale
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, scale)
+        
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        let optionalImage :UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let image = optionalImage else {
+            result(nil)
+            
+            return
+        } // guard no image
+        
+        guard let path = writeImageToDefaultPath(image: image) else {
+            result(nil)
+            
+            return
+        } // guard cannot write image
+        
+        self.screenshotPath = path
+        
+        writeImageToGallery(image: image)
     } // takeScreenshot()
 } // SwiftNativeScreenshotPlugin
