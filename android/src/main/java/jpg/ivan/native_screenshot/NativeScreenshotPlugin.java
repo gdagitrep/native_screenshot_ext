@@ -8,13 +8,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
-import android.view.PixelCopy;
 import android.view.View;
 import android.view.Window;
 
@@ -23,7 +20,6 @@ import androidx.annotation.NonNull;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -55,7 +51,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 	public NativeScreenshotPlugin() {
 	} // NativeScreenshotPlugin()
 
-	// Condensed logic to initiliaze the plugin
+	// Condensed logic to initialize the plugin
 	private void initPlugin(Context context, BinaryMessenger messenger, Activity activity, Object renderer) {
 		this.context = context;
 		this.activity = activity;
@@ -183,7 +179,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 			appInfo = this.context.getPackageManager()
 					.getApplicationInfo(this.context.getPackageName(), 0);
 		} catch (Exception ex) {
-
+			Log.println(Log.INFO, TAG, "Error getting package name, using default. Err: " + ex.getMessage());
 		}
 
 		if(appInfo == null) {
@@ -207,11 +203,17 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 
 		File dir = new File(sDir);
 
-		if( dir.exists() || dir.mkdir()) {
-			return sDir + File.separator + getScreenshotName();
-		} // if exists
+		String dirPath;
 
-		return externalDir + File.separator + getScreenshotName();
+		if( dir.exists() || dir.mkdir()) {
+			dirPath = sDir + File.separator + getScreenshotName();
+		} else {
+		    dirPath = externalDir + File.separator + getScreenshotName();
+        }
+
+        Log.println(Log.INFO, TAG, "Built ScreeshotPath: " + dirPath);
+
+		return dirPath;
 	} // getScreenshotPath()
 
 	private String writeBitmap(Bitmap bitmap) {
@@ -317,9 +319,9 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 			view.setDrawingCacheEnabled(true);
 
 			Bitmap bitmap = null;
-			if( this.renderer.getClass().getSimpleName().equals("FlutterView") ) {
-				bitmap = ( (FlutterView) this.renderer ).getBitmap();
-			} else if( this.renderer.getClass().getSimpleName().equals("FlutterRenderer") ) {
+			if (this.renderer.getClass() == FlutterView.class) {
+				bitmap = ((FlutterView) this.renderer).getBitmap();
+			} else if(this.renderer.getClass() == FlutterRenderer.class ) {
 				bitmap = ( (FlutterRenderer) this.renderer ).getBitmap();
 			}
 
@@ -327,6 +329,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 				this.ssError = true;
 				this.ssPath = null;
 
+                Log.println(Log.INFO, TAG, "The bitmap cannot be created :(");
 				return;
 			} // if
 
@@ -336,6 +339,8 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 			if( path == null || path.isEmpty() ) {
 				this.ssError = true;
 				this.ssPath = null;
+
+                Log.println(Log.INFO, TAG, "The bitmap cannot be written, invalid path.");
 
 				return;
 			} // if
@@ -351,22 +356,29 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 
 	private boolean permissionToWrite() {
 		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            Log.println(Log.INFO, TAG, "Permission to write false due to version codes.");
+
 			return false;
 		}
 
 		int perm = this.activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
 		if(perm == PackageManager.PERMISSION_GRANTED) {
+            Log.println(Log.INFO, TAG, "Permission to write granted!");
+
 			return true;
 		} // if
 
-		this.activity.requestPermissions(
+        Log.println(Log.INFO, TAG, "Requesting permissions...");
+        this.activity.requestPermissions(
 				new String[]{
 						Manifest.permission.WRITE_EXTERNAL_STORAGE
 				},
 				11
 		); // requestPermissions()
 
-		return false;
+        Log.println(Log.INFO, TAG, "No permissions :(");
+
+        return false;
 	} // permissionToWrite()
 } // NativeScreenshotPlugin

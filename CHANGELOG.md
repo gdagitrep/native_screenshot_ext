@@ -1,3 +1,9 @@
+## 0.0.4 - 15.05.2020
+- Homepage, Repository and Issuetracker updated to GitLab ones.
+### Android
+- Added some log messages to make easier to track errors.
+- Class names minified/obfuscated by Android release mode were preventing get the correct class of the needed view for take the screenshot. Fixed comparing classes instead names. ivanjpg/native_screenshot#2 
+
 ## 0.0.3
 * Homepage, Repository and Issuetracker added to `pubspec.yaml`.
 ### iOS

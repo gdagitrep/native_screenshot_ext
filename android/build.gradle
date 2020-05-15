@@ -1,5 +1,5 @@
 group 'jpg.ivan.native_screenshot'
-version '1.0'
+version '1.1'
 
 buildscript {
     repositories {
@@ -25,7 +25,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 23
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {

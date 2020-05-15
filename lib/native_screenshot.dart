@@ -11,7 +11,7 @@ class NativeScreenshot {
   /// Captures everything as is shown in user's device.
   /// 
   /// Returns [null] if an error ocurrs.
-  /// Returns [String] of the screenshot.
+  /// Returns a [String] with the path of the screenshot.
   static Future<String> takeScreenshot() async {
     final String path = await _channel.invokeMethod('takeScreenshot');
 
