@@ -1,4 +1,4 @@
-group 'com.dsquare90.native_screenshot_ext'
+group 'jpg.ivan.native_screenshot'
 version '1.1'
 
 buildscript {

@@ -1,3 +1,7 @@
+## 1.1.0
+
+- New package created with name native_screenshot_ext to extend the functionality of https://gitlab.com/ivanjpg/native_screenshot  
+---
 ## 1.0.0 - 04.04.2020
 ### Fixed
 - Null-safety added to the only method we have: `takeScreenshot()`.

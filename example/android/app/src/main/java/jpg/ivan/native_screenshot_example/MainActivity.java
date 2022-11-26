@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugins.GeneratedPluginRegistrant;
-import com.dsquare90.native_screenshot_ext.NativeScreenshotPlugin;
+import jpg.ivan.native_screenshot.NativeScreenshotPlugin;
 
 public class MainActivity extends FlutterActivity {
   @Override

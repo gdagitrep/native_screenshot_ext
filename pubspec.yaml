@@ -1,6 +1,6 @@
 name: native_screenshot_ext
 description: A extension of a plugin `https://gitlab.com/ivanjpg/native_screenshot`, to take screenshots using native code (iOS & Android).
-version: 1.0.0
+version: 1.1.0
 email: Dhirendra Singh <dhiruregister@gmail.com>
 homepage: https://github.com/gdagitrep/native_screenshot_ext.git
 repository: https://github.com/gdagitrep/native_screenshot_ext.git
@@ -22,7 +22,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.dsquare90.native_screenshot_ext
+        package: jpg.ivan.native_screenshot
         pluginClass: NativeScreenshotPlugin
       ios:
         pluginClass: NativeScreenshotPlugin

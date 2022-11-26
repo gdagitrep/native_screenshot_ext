@@ -1,4 +1,4 @@
-package com.dsquare90.native_screenshot_ext;
+package jpg.ivan.native_screenshot;
 
 import android.annotation.SuppressLint;
 import android.view.PixelCopy;
