@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:native_screenshot/native_screenshot.dart';
+import 'package:native_screenshot_ext/native_screenshot.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('native_screenshot');
