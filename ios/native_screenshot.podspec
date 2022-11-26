@@ -3,7 +3,7 @@
 # Run `pod lib lint native_screenshot.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'native_screenshot'
+  s.name             = 'native_screenshot_ext'
   s.version          = '0.0.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC

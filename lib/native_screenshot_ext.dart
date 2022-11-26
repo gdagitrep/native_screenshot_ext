@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class NativeScreenshot {
 	/// Comunication property to talk to the native background code.
 	static const MethodChannel _channel =
-	const MethodChannel('native_screenshot');
+	const MethodChannel('native_screenshot_ext');
 
 	/// Captures everything as is shown in user's device.
 	///

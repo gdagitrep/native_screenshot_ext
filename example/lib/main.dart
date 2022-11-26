@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:native_screenshot/native_screenshot.dart';
+import 'package:native_screenshot_ext/native_screenshot_ext.dart';
 
 void main() => runApp(MyApp());
 

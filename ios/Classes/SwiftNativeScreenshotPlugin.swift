@@ -15,7 +15,7 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
     } // init()
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "native_screenshot", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(name: "native_screenshot_ext", binaryMessenger: registrar.messenger())
 
         let app = UIApplication.shared
         let controller :FlutterViewController = app.delegate!.window!!.rootViewController as! FlutterViewController
@@ -51,7 +51,7 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         let format = DateFormatter()
         format.dateFormat = "yyyymmddHHmmss"
 
-        let fname :String = "native_screenshot-\(format.string(from: Date())).png"
+        let fname :String = "native_screenshot_ext-\(format.string(from: Date())).png"
 
         return fname
     } // getScreenshotName()

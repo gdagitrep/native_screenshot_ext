@@ -1,6 +1,6 @@
 #import "NativeScreenshotPlugin.h"
-#if __has_include(<native_screenshot/native_screenshot-Swift.h>)
-#import <native_screenshot/native_screenshot-Swift.h>
+#if __has_include(<native_screenshot_ext/native_screenshot-Swift.h>)
+#import <native_screenshot_ext/native_screenshot-Swift.h>
 #else
 // Support project import fallback if the generated compatibility header
 // is not copied when this plugin is created as a library.

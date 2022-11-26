@@ -58,7 +58,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 		this.activity = activity;
 		this.renderer = renderer;
 
-		this.channel = new MethodChannel(messenger, "native_screenshot");
+		this.channel = new MethodChannel(messenger, "native_screenshot_ext");
 		this.channel.setMethodCallHandler(this);
 	} // initPlugin()
 
@@ -179,7 +179,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 		java.text.SimpleDateFormat sf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 		String sDate = sf.format(new Date());
 
-		return "native_screenshot-" + sDate + ".png";
+		return "native_screenshot_ext-" + sDate + ".png";
 	} // getScreenshotName()
 
 	private String getApplicationName() {
