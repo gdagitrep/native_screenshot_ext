@@ -44,7 +44,7 @@ to your `info.plist` file inside `ios/Runner` directory, the application will cr
 Import the library:
 
 ```
-import 'package:native_screenshot/native_screenshot.dart';
+import 'package:native_screenshot_ext/native_screenshot_ext.dart';
 ```
 
 and take a screenshot:
