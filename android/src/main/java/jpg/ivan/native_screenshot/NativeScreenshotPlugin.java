@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -138,7 +139,12 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 			return;
 		}
 		if (call.method.equals("takeScreenshotImage")) {
-			handleTakeScreenshotImage(result);
+			int quality = 100;
+			ArrayList arguments = (ArrayList) call.arguments;
+			if(arguments.size() > 0) {
+				quality = (Integer) arguments.get(0);
+			}
+			handleTakeScreenshotImage(result, quality);
 			return;
 		}
 		Log.println(Log.INFO, TAG, "Method " + call.method + " not implemented!");
@@ -407,7 +413,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 		return false;
 	} // permissionToWrite()
 
-	private void handleTakeScreenshotImage(@NonNull Result result) {
+	private void handleTakeScreenshotImage(@NonNull Result result, int quality) {
 		try {
 			Log.i(TAG, "Capturing bitmap");
 			Bitmap bitmap = getBitmapOld();
@@ -418,7 +424,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 			}
 			Log.i(TAG, "Converting bitmap to png");
 			ByteArrayOutputStream oStream = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.PNG, 100, oStream);
+			bitmap.compress(Bitmap.CompressFormat.PNG, quality, oStream);
 			oStream.flush();
 			oStream.close();
 			Log.i(TAG, "Success");

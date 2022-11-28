@@ -32,7 +32,8 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         if call.method == "takeScreenshot" {
             handleTakeScreenshot(result: result)
         } else if call.method == "takeScreenshotImage" {
-            handleTakeScreenshotImage(result: result)
+            if(call.arguments.count > 0 )
+                handleTakeScreenshotImage(result: result, quality: Int(call.arguments[0]))
         }
         result(FlutterMethodNotImplemented)
 
@@ -131,7 +132,7 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         writeImageToGallery(image: image)
     } // takeScreenshot()
 
-    func handleTakeScreenshotImage(result: @escaping FlutterResult) {
+    func handleTakeScreenshotImage(result: @escaping FlutterResult, quality: Int) {
         let optionalImage :UIImage? = captureImage(view: controller.view)
         guard let image = optionalImage else {
             result(nil)

@@ -22,8 +22,8 @@ class NativeScreenshot {
 	///
 	/// Returns a [List<int>] with the png data for the screenshot,
 	/// or [null] if an error occurs.
-	static Future<List<int>?> takeScreenshotImage() async {
-		final List<int>? image = await _channel.invokeMethod('takeScreenshotImage');
+	static Future<List<int>?> takeScreenshotImage(int quality) async {
+		final List<int>? image = await _channel.invokeMethod('takeScreenshotImage', [quality]);
 		return image;
 	}
 } // NativeScreenshot

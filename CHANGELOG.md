@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Pass quality value while creating png to be able to get low quality screenshots images. Pass 100 for best quality.
+
 ## 1.1.0
 
 - New package created with name native_screenshot_ext to extend the functionality of https://gitlab.com/ivanjpg/native_screenshot  
