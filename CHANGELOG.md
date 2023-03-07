@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Fixing No podspec found for `native_screenshot_ext` in `.symlinks/plugins/native_screenshot_ext/ios. 
+- The name change was missed for podspec file.
+
 ## 1.2.0
 
 - Pass quality value while creating png to be able to get low quality screenshots images. Pass 100 for best quality.
