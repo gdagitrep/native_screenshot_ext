@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-	Widget _imgHolder;
+	late Widget _imgHolder;
 
 	@override
 	void initState() {
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 						ElevatedButton(
 							child: Text('Press to capture screenshot'),
 							onPressed: () async {
-								String path = await NativeScreenshot.takeScreenshot();
+								String? path = await NativeScreenshot.takeScreenshot();
 
 								debugPrint('Screenshot taken, path: $path');
 
