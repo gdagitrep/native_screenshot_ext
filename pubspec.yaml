@@ -1,6 +1,6 @@
 name: native_screenshot_ext
 description: A extension of a plugin `https://gitlab.com/ivanjpg/native_screenshot`, to take screenshots using native code (iOS & Android).
-version: 1.2.3
+version: 1.2.5
 email: Dhirendra Singh <dhiruregister@gmail.com>
 homepage: https://github.com/gdagitrep/native_screenshot_ext.git
 repository: https://github.com/gdagitrep/native_screenshot_ext.git

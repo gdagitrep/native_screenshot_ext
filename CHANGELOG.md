@@ -1,11 +1,6 @@
-## 1.2.3
+## 1.2.2-1.2.5
 
-- Take 2- Some bug fixes in ios build
-
-
-## 1.2.2
-
-- Some bug fixes in ios build
+- Some bug fixes in ios build. Now working for ios.
 ## 1.2.1
 
 - Fixing No podspec found for `native_screenshot_ext` in `.symlinks/plugins/native_screenshot_ext/ios. 

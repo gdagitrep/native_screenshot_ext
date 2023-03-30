@@ -50,6 +50,13 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         takeScreenshot(view: controller.view)
     } // handleTakeScreenshot()
 
+    func handleTakeScreenshotImage(result: @escaping FlutterResult, quality: Int) {
+        self.result = result
+
+        // FIX: add posibility to choose if gallery or some path
+        takeScreenshotImage(view: controller.view, quality: quality)
+    } // handleTakeScreenshotImage()
+
     func getScreenshotName() -> String {
         let format = DateFormatter()
         format.dateFormat = "yyyymmddHHmmss"
@@ -134,8 +141,8 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
         writeImageToGallery(image: image)
     } // takeScreenshot()
 
-    func handleTakeScreenshotImage(result: @escaping FlutterResult, quality: Int) {
-        let optionalImage :UIImage? = captureImage(view: controller.view)
+    func takeScreenshotImage(view: UIView,  quality: Int) {
+        let optionalImage :UIImage? = captureImage(view: view)
         guard let image = optionalImage else {
             result(nil)
             return
@@ -145,6 +152,6 @@ public class SwiftNativeScreenshotPlugin: NSObject, FlutterPlugin {
             return
         }
         result(imageData)
-    } // handleTakeScreenshotImage()
+    }
 
 } // SwiftNativeScreenshotPlugin
