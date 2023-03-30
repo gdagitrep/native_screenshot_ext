@@ -15,7 +15,9 @@ native_screenshot: ^<latest_version>
 to your `pubspec.yaml` file.
 
 ### Android
-You must add
+If you are calling `takeScreenshotImage` method, you don't need to add anything.
+
+If you want to call `takeScreenshot` method, you must add
 
 ```
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -30,7 +32,9 @@ android:requestLegacyExternalStorage="true"
 ```
 
 ### iOS
-If don't add
+If you are calling `takeScreenshotImage` method, you don't need to add anything.
+
+If don't add and call `takeScreenshot` method
 
 ```
 <key>NSPhotoLibraryAddUsageDescription</key>
@@ -51,6 +55,12 @@ and take a screenshot:
 
 ```
 String path = await NativeScreenshot.takeScreenshot()
+```
+
+You can choose to let the function return the image Int array, instead of making it save (in which case, you may not need to add `android:requestLegacyExternalStorage="true"`/`<key>NSPhotoLibraryAddUsageDescription</key>` to android/iOS
+
+```
+Uint8List pngData = await NativeScreenshot.takeScreenshotImage(50) as Uint8List; 
 ```
 
 In error case the function returns `null` and the screenshot path if success.
