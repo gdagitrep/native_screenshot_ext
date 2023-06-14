@@ -142,7 +142,7 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 		if (call.method.equals("takeScreenshotImage")) {
 			int quality = 100;
 
-			HashMap arguments = call.arguments;
+			HashMap arguments = (HashMap) call.arguments;
 			System.out.println(arguments);
 			if(arguments.size() > 0) {
 				quality = (Integer) arguments.get("quality");
