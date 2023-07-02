@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -140,10 +141,13 @@ public class NativeScreenshotPlugin implements MethodCallHandler, FlutterPlugin,
 		}
 		if (call.method.equals("takeScreenshotImage")) {
 			int quality = 100;
-			ArrayList arguments = (ArrayList) call.arguments;
+
+			HashMap arguments = (HashMap) call.arguments;
+			
 			if(arguments.size() > 0) {
-				quality = (Integer) arguments.get(0);
+				quality = (Integer) arguments.get("quality");
 			}
+
 			handleTakeScreenshotImage(result, quality);
 			return;
 		}
